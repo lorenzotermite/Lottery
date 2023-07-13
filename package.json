@@ -1,0 +1,12 @@
+{
+  "name": "Lottery",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "dependencies": {
+    "@openzeppelin/contracts": "^4.9.2"
+  },
+  "devDependencies": {
+    "hardhat": "^2.16.1"
+  }
+}
