@@ -4,17 +4,22 @@
 // You can also run a script with `npx hardhat run <script>`. If you do that, Hardhat
 // will compile your contracts, add the Hardhat Runtime Environment's members to the
 // global scope, and execute the script.
-const hre = require("hardhat");
-const { networkConfig } = require("../helper-hardhat-config");
+const { network, run } = require("hardhat");
+const { deploy } = require("./deploy.js");
+const { deployToken } = require("./deployLotteryToken.js");
 
-async function deploy(chainId) {
-  const { ltk } = networkConfig[chainId];
-  const lottery = await hre.ethers.deployContract("LotteryContract", ltk);
-  await lottery.waitForDeployment();
+async function main() {
+  const chainId = network.config.chainId;
+
+  await run("compile");
+
+  await deployToken();
+  await deploy(chainId);
 }
 
 // We recommend this pattern to be able to use async/await everywhere
 // and properly handle errors.
-module.exports = {
-  deploy,
-};
+main().catch((error) => {
+  console.error(error);
+  process.exitCode = 1;
+});
