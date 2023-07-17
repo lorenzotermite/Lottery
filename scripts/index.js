@@ -6,14 +6,13 @@
 // global scope, and execute the script.
 const { network, run } = require("hardhat");
 const { deploy } = require("./deploy.js");
-const { deployToken } = require("./deployLotteryToken.js");
+const { deployToken, deployLtk } = require("./deployLotteryToken.js");
 
 async function main() {
   const chainId = network.config.chainId;
 
   await run("compile");
-
-  await deployToken();
+  //await deployLtk();
   await deploy(chainId);
 }
 

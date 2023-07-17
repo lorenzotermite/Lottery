@@ -16,7 +16,7 @@ contract LotteryContract is Ownable{
 using Counters for Counters.Counter;
 uint immutable  ticketAmount=100;
 uint256 private ticketNumber;
-IERC20 immutable coin;
+IERC20 public immutable coin;
 
 struct ticket {
      address  user;
@@ -28,10 +28,10 @@ mapping(uint256 =>ticket) TicketForUser;
 //////////////
 ///EXTERNAL///
 //////////////
-constructor(IERC20 _coin)  Ownable(){
+constructor(address _coin)  Ownable(){
     require(address(_coin)!=address(0),"Address 0");
-    coin=_coin;
-
+    coin=IERC20(_coin);
+ 
 }
 
 
@@ -39,14 +39,21 @@ constructor(IERC20 _coin)  Ownable(){
 function enterRaffle(uint amount)external  {
 require(amount>=ticketAmount,"Not enough for the ticket");
 
+uint refound;
 ticketNumber++;
 TicketForUser[ticketNumber]=ticket(msg.sender,false);
 
+
+
+
+coin.transfer(msg.sender,refound);
 if(amount>ticketAmount){
-    uint refound=amount-ticketAmount;
-   coin.transfer(msg.sender,refound);
+    refound=amount-ticketAmount;
+   
 }
-coin.transfer(address(this),ticketAmount);
+//uint256 priceTicket=ticketAmount ** 18;
+coin.transfer(address(this),amount);
+
 }
 
 function pickWinner(uint _ticketNumber)external view returns(bool){
@@ -66,7 +73,9 @@ TicketForUser[3].WinorLose=true;
 coin.transfer(address(this),100);
 }
 
-
+function Coin()external view returns (address){
+    return address(coin);
+}
 
 
 ////////////

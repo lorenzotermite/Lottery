@@ -1,14 +1,12 @@
 const { ethers } = require("hardhat");
 
-async function deployToken() {
-  const LotteryContract = await ethers.getContractFactory("LotteryToken");
-  const lotteryInstance = await LotteryContract.deploy();
-
+async function deployLtk() {
+  const lotteryInstance = await ethers.deployContract("LotteryToken");
   await lotteryInstance.waitForDeployment();
 
-  console.log(`Deploycontract at ${await lotteryInstance.getAddress()}`);
+  console.log(`LotteryToken deployed to ${lotteryInstance.target}`);
 }
 
 module.exports = {
-  deployToken,
+  deployLtk,
 };

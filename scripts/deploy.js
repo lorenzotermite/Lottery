@@ -9,8 +9,10 @@ const { networkConfig } = require("../helper-hardhat-config");
 
 async function deploy(chainId) {
   const { ltk } = networkConfig[chainId];
-  const lottery = await hre.ethers.deployContract("LotteryContract", ltk);
+  const lottery = await hre.ethers.deployContract("LotteryContract", [ltk]);
   await lottery.waitForDeployment();
+
+  console.log(`Lottery deployed to ${lottery.target}`);
 }
 
 // We recommend this pattern to be able to use async/await everywhere
