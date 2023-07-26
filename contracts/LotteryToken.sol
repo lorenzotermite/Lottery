@@ -6,7 +6,7 @@ import "@openzeppelin/contracts/token/ERC20/ERC20.sol";
 contract LotteryToken is ERC20{
 
     constructor()ERC20("LotteryToken","LTK"){
-        _mint(msg.sender, 1000 * 10 ** decimals());
+        _mint(msg.sender, 200 * 10 ** decimals());
 
     }
 }
