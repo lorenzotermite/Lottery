@@ -69,7 +69,7 @@ require(counterUser==10,"Max partecipant not enough");
 pickWinnerAlready=true;
 counterUser=0;
 //random pick
-TicketForUser[3].WinorLose=true;
+//TODO: random pick for winner
 //trasfer win at user
 coin.transfer(msg.sender,100);
 }
